@@ -1,4 +1,6 @@
 /.phpunit.cache
+/cloudflared.exe
+*.exe
 /node_modules
 /public/build
 /public/hot
