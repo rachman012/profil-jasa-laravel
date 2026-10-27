@@ -1,0 +1,2 @@
+# SQLite files are allowed to be tracked for deployment reference
+# Railway will run migrations fresh on each deploy
