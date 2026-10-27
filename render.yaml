@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: profil-jasa-laravel
+    runtime: php
+    plan: free
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader --no-interaction
+      npm install
+      npm run build
+      php artisan migrate --force
+      php artisan db:seed --force
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+      php artisan storage:link
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_NAME
+        value: Profil Jasa
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        value: base64:F1DLX7AqyoeUZ1AWUPyXKRNk8Tt4vnWlUAhYEx2mu8k=
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: SESSION_DRIVER
+        value: file
+      - key: LOG_LEVEL
+        value: error
+      - key: DATABASE_URL
+        fromDatabase:
+          name: profil-jasa-db
+          property: connectionString
+
+databases:
+  - name: profil-jasa-db
+    plan: free
+    databaseName: profil_jasa
+    user: profil_jasa_user
